@@ -3,6 +3,7 @@ package com.ecust.test;
 import com.ecust.utils.PageUtils;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -95,6 +96,11 @@ public class TestSeleniumDemo {
 
         //7、点击该链接
         PageUtils.scrollToElementAndClick(aElement, driver);
+
+        String baiduPageJs = "alert('你现在访问的是百度页面，在博客园中调用该js没有效果。作者也不知道为什么，不过谢谢大家访问')";
+        JavascriptExecutor baiduExecutor = (JavascriptExecutor) driver;
+        baiduExecutor.executeScript(baiduPageJs);
+        Thread.sleep(3000);
 
         //8、当前页面时百度的页面
         //将浏览器对象强制转为可以执行js的对象
