@@ -49,6 +49,11 @@ public class PageUtils {
      * @param driver
      */
     public static void getAnotherPage(WebDriver driver){
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         //1、首先获得当前标签页的 handle
         String currentPageHandle = driver.getWindowHandle();
 
@@ -56,6 +61,45 @@ public class PageUtils {
         Set<String> totalPageHandle = driver.getWindowHandles();
 
         //3、遍历handle，如果不是当前的 handle 那么切换到另一个handle的标签页
+        for (String handleStr : totalPageHandle){
+            if (!handleStr.equals(currentPageHandle)){
+                //跳转到另一个标签页，这个时候你就可以用driver控制当前页面了
+                driver.switchTo().window(handleStr);
+            }
+        }
+    }
+
+    /**
+     * 我们在开启浏览器的时候里面有很多的标签页，但是一个driver只能对应一个标签页。
+     * 而每一个driver的handle也是对应一个标签页，如果我们想跳转到别的标签页，需要
+     * 首先得到另一个标签页的handle，然后调用driver.switchTo().window(handle);
+     * 方法。
+     *
+     * 例如，我们访问淘宝的时候，有一个商品列表页面，然后你点击其中一个商品，它会新开
+     * 一个标签页，这个时候你想控制那个新的标签页，那么你需要首先得到那个新的标签页的
+     * handle，因为每一个handle对应一个浏览器的标签页。然后调用
+     * driver.switchTo().window(handle);
+     *
+     *
+     * 这个方法是当有两个标签页时切换到另一个标签页的方法，并且关闭之前的页面
+     * @param driver
+     */
+    public static void getAnotherPageAndCloseCurrentPage(WebDriver driver){
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //1、首先获得当前标签页的 handle
+        String currentPageHandle = driver.getWindowHandle();
+
+        //2、关闭当前页面
+        driver.close();
+
+        //3、获得所有标签页的 handle
+        Set<String> totalPageHandle = driver.getWindowHandles();
+
+        //4、遍历handle，如果不是当前的 handle 那么切换到另一个handle的标签页
         for (String handleStr : totalPageHandle){
             if (!handleStr.equals(currentPageHandle)){
                 //跳转到另一个标签页，这个时候你就可以用driver控制当前页面了
