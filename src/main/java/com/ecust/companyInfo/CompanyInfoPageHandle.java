@@ -28,7 +28,7 @@ public class CompanyInfoPageHandle {
                 break;
             case "登录":
                 //1、如果是登录页面那就进行登录
-                login(driver, "15000563905","5201314cz");
+                login(driver, "用户名","密码");
                 //2、登录完了之后再判断是什么页面，然后再对当前页面进行处理
                 handleDifferentPage(driver);
                 break;
